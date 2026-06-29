@@ -1,58 +1,277 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
 
-<meta charset="UTF-8">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
-<title>Carrito</title>
+        body {
+            background: #f4f6f9;
+        }
 
-<link rel="stylesheet" href="/css/style.css">
+        .navbar {
+            background: #2c3e50;
+            color: white;
+            padding: 18px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .card {
+            background: white;
+            width: 900px;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, .2);
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #3498db;
+            color: white;
+            padding: 12px;
+        }
+
+        td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .btnMas,
+        .btnMenos,
+        .btnEliminar {
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            margin: 2px;
+        }
+
+        .btnMas {
+            background: #27ae60;
+        }
+
+        .btnMenos {
+            background: #f39c12;
+        }
+
+        .btnEliminar {
+            background: #e74c3c;
+        }
+
+        .btnComprar {
+            width: 100%;
+            margin-top: 20px;
+            padding: 15px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .btnComprar:hover {
+            background: #2980b9;
+        }
+
+        .total {
+            text-align: right;
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
 
 </head>
 
 <body>
 
-<nav class="navbar">
+    <nav class="navbar">
+        Carrito de Compras
+    </nav>
 
-<div class="logo">
-Carrito de Compras
-</div>
+    <div class="container">
 
-</nav>
+        <div class="card">
 
-<div class="container">
+            <h2>Mi Carrito</h2>
 
-<div class="card">
+            <table>
 
-<table width="100%">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Subtotal</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
 
-<tr>
-<th>Producto</th>
-<th>Cantidad</th>
-<th>Precio</th>
-</tr>
+                <tbody id="tabla">
 
-<tr>
-<td>Arroz</td>
-<td>2</td>
-<td>$2.50</td>
-</tr>
+                    <tr>
+                        <td>Arroz</td>
+                        <td class="precio">1.25</td>
+                        <td class="cantidad">2</td>
+                        <td class="subtotal">$2.50</td>
+                        <td>
+                            <button class="btnMas" onclick="cambiarCantidad(this,1)">+</button>
+                            <button class="btnMenos" onclick="cambiarCantidad(this,-1)">-</button>
+                            <button class="btnEliminar" onclick="eliminarProducto(this)">Eliminar</button>
+                        </td>
+                    </tr>
 
-</table>
+                    <tr>
+                        <td>Aceite</td>
+                        <td class="precio">4.00</td>
+                        <td class="cantidad">1</td>
+                        <td class="subtotal">$4.00</td>
+                        <td>
+                            <button class="btnMas" onclick="cambiarCantidad(this,1)">+</button>
+                            <button class="btnMenos" onclick="cambiarCantidad(this,-1)">-</button>
+                            <button class="btnEliminar" onclick="eliminarProducto(this)">Eliminar</button>
+                        </td>
+                    </tr>
 
-<br>
+                    <tr>
+                        <td>Azúcar</td>
+                        <td class="precio">1.80</td>
+                        <td class="cantidad">3</td>
+                        <td class="subtotal">$5.40</td>
+                        <td>
+                            <button class="btnMas" onclick="cambiarCantidad(this,1)">+</button>
+                            <button class="btnMenos" onclick="cambiarCantidad(this,-1)">-</button>
+                            <button class="btnEliminar" onclick="eliminarProducto(this)">Eliminar</button>
+                        </td>
+                    </tr>
 
-<h3>Total: $2.50</h3>
+                </tbody>
 
-<button class="btn">
-Confirmar Compra
-</button>
+            </table>
 
-</div>
+            <div class="total">
+                Total: <span id="total">$11.90</span>
+            </div>
 
-</div>
+            <button class="btnComprar" onclick="confirmarCompra()">
+                Confirmar Compra
+            </button>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        function actualizarTotal() {
+
+            let total = 0;
+
+            let filas = document.querySelectorAll("#tabla tr");
+
+            filas.forEach(fila => {
+
+                let precio = parseFloat(fila.querySelector(".precio").textContent);
+
+                let cantidad = parseInt(fila.querySelector(".cantidad").textContent);
+
+                let subtotal = precio * cantidad;
+
+                fila.querySelector(".subtotal").textContent = "$" + subtotal.toFixed(2);
+
+                total += subtotal;
+
+            });
+
+            document.getElementById("total").textContent = "$" + total.toFixed(2);
+
+        }
+
+        function cambiarCantidad(boton, cambio) {
+
+            let fila = boton.parentElement.parentElement;
+
+            let cantidad = fila.querySelector(".cantidad");
+
+            let valor = parseInt(cantidad.textContent);
+
+            valor += cambio;
+
+            if (valor < 1) {
+                valor = 1;
+            }
+
+            cantidad.textContent = valor;
+
+            actualizarTotal();
+
+        }
+
+        function eliminarProducto(boton) {
+
+            if (confirm("¿Desea eliminar este producto del carrito?")) {
+
+                boton.parentElement.parentElement.remove();
+
+                actualizarTotal();
+
+            }
+
+        }
+
+        function confirmarCompra() {
+
+            let filas = document.querySelectorAll("#tabla tr");
+
+            if (filas.length == 0) {
+
+                alert("El carrito está vacío.");
+
+                return;
+
+            }
+
+            alert("✅ Compra realizada correctamente.\n\nGracias por comprar en Mi Despensa Virtual.");
+
+        }
+
+        actualizarTotal();
+
+    </script>
 
 </body>
 
 </html>
+```
