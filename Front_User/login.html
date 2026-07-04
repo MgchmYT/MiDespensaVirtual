@@ -1,50 +1,165 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 
 <meta charset="UTF-8">
-<title>Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="/css/style.css">
+<title>Iniciar Sesión</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+}
+
+.navbar{
+    background:#2c3e50;
+    color:white;
+    text-align:center;
+    padding:18px;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:90vh;
+}
+
+.card{
+    width:400px;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 0 15px rgba(0,0,0,.2);
+}
+
+.card h2{
+    text-align:center;
+    color:#2c3e50;
+    margin-bottom:20px;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    font-weight:bold;
+    color:#333;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin-top:5px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    font-size:16px;
+}
+
+input:focus{
+    border-color:#3498db;
+    outline:none;
+}
+
+.checkbox{
+    margin-top:15px;
+    display:flex;
+    align-items:center;
+}
+
+.checkbox input{
+    width:auto;
+    margin-right:10px;
+}
+
+.btn{
+    width:100%;
+    margin-top:20px;
+    padding:12px;
+    background:#3498db;
+    color:white;
+    border:none;
+    border-radius:5px;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.btn:hover{
+    background:#2980b9;
+}
+
+.enlace{
+    text-align:center;
+    margin-top:20px;
+}
+
+.enlace a{
+    color:#3498db;
+    text-decoration:none;
+}
+
+.enlace a:hover{
+    text-decoration:underline;
+}
+
+.error{
+    color:red;
+    text-align:center;
+    margin-top:15px;
+}
+
+</style>
 
 </head>
-<body id="Login">
-    
-    <nav class="navbar">
-        <div class="logo">Mi Despensa Virtual</div>
-    </nav>
+<body>
+
+<nav class="navbar">
+    <div class="logo">Mi Despensa Virtual</div>
+</nav>
 
     <div class="container">
 
-        <div class="card" style="max-width:400px;margin:auto;">
+<div class="card" style="max-width:400px;margin:auto;">
 
             <h2>Iniciar Sesión</h2>
 
-            <form>
+<form>
 
-                <label>Correo</label>
-                <input type="email">
-                <br>
-                <br>
+<label>Correo</label>
+<input type="email">
 
-                <label>Contraseña</label>
-                <input type="password">
+<label>Contraseña</label>
+<input type="password">
 
-                <button class="btn">
-                Ingresar
-                </button>
+<button class="btn">
+Ingresar
+</button>
 
             </form>
 
-            <br>
+<br>
 
-            <a class="link"   href="registro.html">
-            Crear Cuenta
-            </a>
+<a href="registro.html">
+Crear Cuenta
+</a>
 
         </div>
 
-    </div>
+</div>
 
 </body>
+
 </html>
+```

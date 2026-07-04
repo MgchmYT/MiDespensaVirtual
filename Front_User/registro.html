@@ -1,17 +1,109 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="UTF-8">
-<title>Registro</title>
 
-<link rel="stylesheet" href="/css/style.css">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Registro de Usuario</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+}
+
+.navbar{
+    width:100%;
+    background:#2c3e50;
+    color:white;
+    padding:18px;
+    text-align:center;
+    font-size:25px;
+    font-weight:bold;
+}
+
+.container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:90vh;
+}
+
+.card{
+    background:white;
+    width:400px;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 0 15px rgba(0,0,0,.2);
+}
+
+.card h2{
+    text-align:center;
+    margin-bottom:20px;
+    color:#2c3e50;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:1px solid #ccc;
+    border-radius:5px;
+    font-size:16px;
+}
+
+input:focus{
+    outline:none;
+    border:1px solid #3498db;
+}
+
+.btn{
+    width:100%;
+    padding:12px;
+    margin-top:15px;
+    border:none;
+    background:#3498db;
+    color:white;
+    font-size:18px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.btn:hover{
+    background:#2980b9;
+}
+
+.error{
+    color:red;
+    margin-top:15px;
+    text-align:center;
+    font-size:15px;
+}
+
+.exito{
+    color:green;
+    margin-top:15px;
+    text-align:center;
+    font-size:15px;
+}
+
+</style>
 
 </head>
 
 <body>
 
 <nav class="navbar">
-<div class="logo">Mi Despensa Virtual</div>
+Mi Despensa Virtual
 </nav>
 
 <div class="container">
@@ -20,17 +112,21 @@
 
 <h2>Registro de Usuario</h2>
 
-<form>
+<form id="formRegistro">
 
-<input type="text" placeholder="Nombre Completo">
+<input type="text" id="nombre" placeholder="Nombre Completo" required>
 
-<input type="email" placeholder="Correo">
+<input type="email" id="correo" placeholder="Correo Electrónico" required>
 
-<input type="password" placeholder="Contraseña">
+<input type="password" id="password" placeholder="Contraseña" required>
 
-<button class="btn">
+<input type="password" id="confirmar" placeholder="Confirmar Contraseña" required>
+
+<button type="submit" class="btn">
 Registrarse
 </button>
+
+<p id="mensaje"></p>
 
 </form>
 
@@ -38,5 +134,69 @@ Registrarse
 
 </div>
 
+<script>
+
+const formulario = document.getElementById("formRegistro");
+
+formulario.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    const nombre = document.getElementById("nombre").value.trim();
+    const correo = document.getElementById("correo").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmar = document.getElementById("confirmar").value;
+
+    const mensaje = document.getElementById("mensaje");
+
+    mensaje.className = "";
+    mensaje.innerHTML = "";
+
+    // VALIDAR NOMBRE
+    const regexNombre = /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/;
+
+    if(nombre.length < 3){
+        mensaje.className = "error";
+        mensaje.innerHTML = "El nombre debe tener al menos 3 caracteres.";
+        return;
+    }
+
+    if(!regexNombre.test(nombre)){
+        mensaje.className = "error";
+        mensaje.innerHTML = "El nombre solo puede contener letras y espacios.";
+        return;
+    }
+
+    // VALIDAR CORREO (IMPORTANTE: sin regex conflictivo)
+    if(correo === ""){
+        mensaje.className = "error";
+        mensaje.innerHTML = "Ingrese un correo electrónico válido.";
+        return;
+    }
+
+    // VALIDAR CONTRASEÑA
+    if(password.length < 8){
+        mensaje.className = "error";
+        mensaje.innerHTML = "La contraseña debe tener al menos 8 caracteres.";
+        return;
+    }
+
+    // CONFIRMAR CONTRASEÑA
+    if(password !== confirmar){
+        mensaje.className = "error";
+        mensaje.innerHTML = "Las contraseñas no coinciden.";
+        return;
+    }
+
+    mensaje.className = "exito";
+    mensaje.innerHTML = "✅ Usuario registrado correctamente.";
+
+    formulario.reset();
+
+});
+
+</script>
+
 </body>
+
 </html>
