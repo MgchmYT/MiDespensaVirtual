@@ -7,15 +7,27 @@
 
 body{
     background:#f4f6f9;
+    background-size: cover;               
+    background-position: center;         
+    background-repeat: no-repeat;           
+    background-attachment: fixed; 
+   
+}
+body#Login{
+    background-image: url(/Imgs/Login-Font.jpg);
 }
 
+
 .navbar{
-    background:#198754;
-    color:white;
+    background:#464eaa;
+    color:#ffffff;  
     padding:15px;
     display:flex;
     justify-content:space-between;
     align-items:center;
+}
+.navbar#ind{
+    background:#464eaa;
 }
 
 .logo{
@@ -30,10 +42,14 @@ body{
 }
 
 .container{
+    display: flex;
+    justify-content: center; 
+    align-items: center;      
     width:90%;
     margin:auto;
     margin-top:30px;
 }
+
 
 .card{
     background:white;
@@ -43,18 +59,29 @@ body{
 }
 
 .btn{
-    background:#198754;
+    align-items: center;
+    background:#414aaf;
     color:white;
     border:none;
     padding:10px 20px;
     border-radius:5px;
     cursor:pointer;
+    margin-left: 120px;
 }
 
 .btn:hover{
-    background:#157347;
+    background:#07435a;
 }
-
+.link{
+    font-size: smaller;
+    color: #414aaf;
+    text-decoration: none;
+    margin-left: 127px;
+    
+}
+.link:hover{
+    color: #07435a;
+}
 input{
     width:100%;
     padding:10px;
@@ -69,3 +96,4 @@ footer{
     padding:20px;
     margin-top:40px;
 }
+
