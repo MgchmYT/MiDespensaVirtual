@@ -1,113 +1,144 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Usuario - Mi Despensa Virtual</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Registro de Usuario</title>
-
-<link rel=" stylesheet" href="/css/style.css">
+  <!-- Tipografías de Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  
+  <!-- Vinculación de tu archivo CSS -->
+  <link rel="stylesheet" href="/css/style.css">
 </head>
-
 <body>
 
-<nav class="navbar">
-Mi Despensa Virtual
-</nav>
+  <!-- ─── NAVBAR ─── -->
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-brand" href="index.html">
+        <div class="nav-brand-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" stroke="#1a2e1f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="3" y1="6" x2="21" y2="6" stroke="#1a2e1f" stroke-width="2" stroke-linecap="round"/>
+            <path d="M16 10a4 4 0 01-8 0" stroke="#1a2e1f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="nav-brand-text">Mi Despensa Virtual</span>
+      </a>
+      <div class="nav-actions">
+        <a href="login.html" class="btn-register">Iniciar Sesión</a>
+      </div>
+    </div>
+  </nav>
 
-<div class="container">
+  <!-- ─── CONTENEDOR DEL FORMULARIO ─── -->
+  <main class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <h1 class="login-title">Crear Cuenta</h1>
+        <p class="login-subtitle">Únete a Mi Despensa Virtual</p>
+      </div>
 
-<div class="card">
+      <form id="formRegistro">
+        
+        <div class="form-group">
+          <label class="form-label" for="nombre">Nombre Completo</label>
+          <input type="text" id="nombre" class="form-control" placeholder="Ej. Juan Pérez" required>
+        </div>
 
-<h2>Registro de Usuario</h2>
+        <div class="form-group">
+          <label class="form-label" for="correo">Correo Electrónico</label>
+          <input type="email" id="correo" class="form-control" placeholder="tu@correo.com" required>
+        </div>
 
-<form id="formRegistro">
+        <div class="form-group">
+          <label class="form-label" for="password">Contraseña</label>
+          <input type="password" id="password" class="form-control" placeholder="Mínimo 8 caracteres" required>
+        </div>
 
-<input type="text" id="nombre" placeholder="Nombre Completo" required>
+        <div class="form-group">
+          <label class="form-label" for="confirmar">Confirmar Contraseña</label>
+          <input type="password" id="confirmar" class="form-control" placeholder="Repite tu contraseña" required>
+        </div>
 
-<input type="email" id="correo" placeholder="Correo Electrónico" required>
+        <!-- Contenedor para el mensaje del Script -->
+        <p id="mensaje"></p>
 
-<input type="password" id="password" placeholder="Contraseña" required>
+        <button type="submit" class="btn-submit">Registrarse</button>
 
-<input type="password" id="confirmar" placeholder="Confirmar Contraseña" required>
+      </form>
 
-<button type="submit" class="btn">
-Registrarse
-</button>
+      <div class="login-footer">
+        ¿Ya tienes una cuenta? <a href="login.html">Inicia sesión aquí</a>
+      </div>
+    </div>
+  </main>
 
-<p id="mensaje"></p>
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <strong>Mi Despensa Virtual</strong> &mdash; Todos los derechos reservados &copy; 2025
+  </footer>
 
-</form>
+  <!-- ─── SCRIPT DE VALIDACIÓN ─── -->
+  <script>
+    const formulario = document.getElementById("formRegistro");
 
-</div>
+    formulario.addEventListener("submit", function(e){
+        e.preventDefault();
 
-</div>
+        const nombre = document.getElementById("nombre").value.trim();
+        const correo = document.getElementById("correo").value.trim();
+        const password = document.getElementById("password").value;
+        const confirmar = document.getElementById("confirmar").value;
 
-<script>
+        const mensaje = document.getElementById("mensaje");
 
-const formulario = document.getElementById("formRegistro");
+        mensaje.className = "";
+        mensaje.innerHTML = "";
 
-formulario.addEventListener("submit", function(e){
+        // VALIDAR NOMBRE
+        const regexNombre = /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/;
 
-    e.preventDefault();
+        if(nombre.length < 3){
+            mensaje.className = "error";
+            mensaje.innerHTML = "El nombre debe tener al menos 3 caracteres.";
+            return;
+        }
 
-    const nombre = document.getElementById("nombre").value.trim();
-    const correo = document.getElementById("correo").value.trim();
-    const password = document.getElementById("password").value;
-    const confirmar = document.getElementById("confirmar").value;
+        if(!regexNombre.test(nombre)){
+            mensaje.className = "error";
+            mensaje.innerHTML = "El nombre solo puede contener letras y espacios.";
+            return;
+        }
 
-    const mensaje = document.getElementById("mensaje");
+        // VALIDAR CORREO (IMPORTANTE: sin regex conflictivo)
+        if(correo === ""){
+            mensaje.className = "error";
+            mensaje.innerHTML = "Ingrese un correo electrónico válido.";
+            return;
+        }
 
-    mensaje.className = "";
-    mensaje.innerHTML = "";
+        // VALIDAR CONTRASEÑA
+        if(password.length < 8){
+            mensaje.className = "error";
+            mensaje.innerHTML = "La contraseña debe tener al menos 8 caracteres.";
+            return;
+        }
 
-    // VALIDAR NOMBRE
-    const regexNombre = /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/;
+        // CONFIRMAR CONTRASEÑA
+        if(password !== confirmar){
+            mensaje.className = "error";
+            mensaje.innerHTML = "Las contraseñas no coinciden.";
+            return;
+        }
 
-    if(nombre.length < 3){
-        mensaje.className = "error";
-        mensaje.innerHTML = "El nombre debe tener al menos 3 caracteres.";
-        return;
-    }
+        mensaje.className = "exito";
+        mensaje.innerHTML = "✅ Usuario registrado correctamente.";
 
-    if(!regexNombre.test(nombre)){
-        mensaje.className = "error";
-        mensaje.innerHTML = "El nombre solo puede contener letras y espacios.";
-        return;
-    }
-
-    // VALIDAR CORREO (IMPORTANTE: sin regex conflictivo)
-    if(correo === ""){
-        mensaje.className = "error";
-        mensaje.innerHTML = "Ingrese un correo electrónico válido.";
-        return;
-    }
-
-    // VALIDAR CONTRASEÑA
-    if(password.length < 8){
-        mensaje.className = "error";
-        mensaje.innerHTML = "La contraseña debe tener al menos 8 caracteres.";
-        return;
-    }
-
-    // CONFIRMAR CONTRASEÑA
-    if(password !== confirmar){
-        mensaje.className = "error";
-        mensaje.innerHTML = "Las contraseñas no coinciden.";
-        return;
-    }
-
-    mensaje.className = "exito";
-    mensaje.innerHTML = "✅ Usuario registrado correctamente.";
-
-    formulario.reset();
-
-});
-
-</script>
+        formulario.reset();
+    });
+  </script>
 
 </body>
-
 </html>

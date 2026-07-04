@@ -1,172 +1,180 @@
-
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrito de Compras</title>
-    <link rel=" stylesheet" href="/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrito de Compras - Mi Despensa Virtual</title>
 
+  <!-- Tipografías de Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  
+  <!-- Vinculación de tu archivo CSS principal -->
+  <link rel="stylesheet" href="/css/style.css">
 </head>
-
 <body>
 
-    <nav class="navbar">
-        Carrito de Compras
-    </nav>
-
-    <div class="container">
-
-        <div class="card">
-
-            <h2>Mi Carrito</h2>
-
-            <table>
-
-                <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th>Precio</th>
-                        <th>Cantidad</th>
-                        <th>Subtotal</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-
-                <tbody id="tabla">
-
-                    <tr>
-                        <td>Arroz</td>
-                        <td class="precio">1.25</td>
-                        <td class="cantidad">2</td>
-                        <td class="subtotal">$2.50</td>
-                        <td>
-                            <button class="btnMas" onclick="cambiarCantidad(this,1)">+</button>
-                            <button class="btnMenos" onclick="cambiarCantidad(this,-1)">-</button>
-                            <button class="btnEliminar" onclick="eliminarProducto(this)">Eliminar</button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Aceite</td>
-                        <td class="precio">4.00</td>
-                        <td class="cantidad">1</td>
-                        <td class="subtotal">$4.00</td>
-                        <td>
-                            <button class="btnMas" onclick="cambiarCantidad(this,1)">+</button>
-                            <button class="btnMenos" onclick="cambiarCantidad(this,-1)">-</button>
-                            <button class="btnEliminar" onclick="eliminarProducto(this)">Eliminar</button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Azúcar</td>
-                        <td class="precio">1.80</td>
-                        <td class="cantidad">3</td>
-                        <td class="subtotal">$5.40</td>
-                        <td>
-                            <button class="btnMas" onclick="cambiarCantidad(this,1)">+</button>
-                            <button class="btnMenos" onclick="cambiarCantidad(this,-1)">-</button>
-                            <button class="btnEliminar" onclick="eliminarProducto(this)">Eliminar</button>
-                        </td>
-                    </tr>
-
-                </tbody>
-
-            </table>
-
-            <div class="total">
-                Total: <span id="total">$11.90</span>
-            </div>
-
-            <button class="btnComprar" onclick="confirmarCompra()">
-                Confirmar Compra
-            </button>
-
+  <!-- ─── NAVBAR ─── -->
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-brand" href="index.html">
+        <div class="nav-brand-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" stroke="#1a2e1f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="3" y1="6" x2="21" y2="6" stroke="#1a2e1f" stroke-width="2" stroke-linecap="round"/>
+            <path d="M16 10a4 4 0 01-8 0" stroke="#1a2e1f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </div>
+        <span class="nav-brand-text">Mi Despensa Virtual</span>
+      </a>
+      <div class="nav-actions">
+        <!-- Botón para volver a la tienda -->
+        <a href="productos.html" class="btn-register" style="background: transparent; color: #fff; border-color: rgba(255,255,255,0.6);">
+          Seguir Comprando
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── CONTENEDOR DEL CARRITO ─── -->
+  <main class="page-container" style="display: flex; justify-content: center;">
+    <div class="login-card cart-card">
+      
+      <div class="login-header" style="text-align: left; margin-bottom: 1.5rem;">
+        <h1 class="login-title">Mi Carrito</h1>
+        <p class="login-subtitle">Revisa los productos antes de pagar</p>
+      </div>
+
+      <!-- Contenedor responsivo para la tabla -->
+      <div class="table-responsive">
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Precio</th>
+              <th style="text-align: center;">Cantidad</th>
+              <th>Subtotal</th>
+              <th style="text-align: right;">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tabla">
+            <tr>
+              <td class="fw-bold">Arroz</td>
+              <td>$<span class="precio">1.25</span></td>
+              <td>
+                <div class="qty-controls">
+                  <button class="btn-qty" onclick="cambiarCantidad(this, -1)">-</button>
+                  <span class="cantidad">2</span>
+                  <button class="btn-qty" onclick="cambiarCantidad(this, 1)">+</button>
+                </div>
+              </td>
+              <td class="subtotal fw-bold text-verde">$2.50</td>
+              <td style="text-align: right;">
+                <button class="btn-remove" onclick="eliminarProducto(this)">Eliminar</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="fw-bold">Aceite</td>
+              <td>$<span class="precio">4.00</span></td>
+              <td>
+                <div class="qty-controls">
+                  <button class="btn-qty" onclick="cambiarCantidad(this, -1)">-</button>
+                  <span class="cantidad">1</span>
+                  <button class="btn-qty" onclick="cambiarCantidad(this, 1)">+</button>
+                </div>
+              </td>
+              <td class="subtotal fw-bold text-verde">$4.00</td>
+              <td style="text-align: right;">
+                <button class="btn-remove" onclick="eliminarProducto(this)">Eliminar</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="fw-bold">Azúcar</td>
+              <td>$<span class="precio">1.80</span></td>
+              <td>
+                <div class="qty-controls">
+                  <button class="btn-qty" onclick="cambiarCantidad(this, -1)">-</button>
+                  <span class="cantidad">3</span>
+                  <button class="btn-qty" onclick="cambiarCantidad(this, 1)">+</button>
+                </div>
+              </td>
+              <td class="subtotal fw-bold text-verde">$5.40</td>
+              <td style="text-align: right;">
+                <button class="btn-remove" onclick="eliminarProducto(this)">Eliminar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="cart-summary">
+        <div class="cart-total">
+          Total: <span id="total">$11.90</span>
+        </div>
+        <button class="btn-submit btn-checkout" onclick="confirmarCompra()">
+          Confirmar Compra
+        </button>
+      </div>
 
     </div>
+  </main>
 
-    <script>
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <strong>Mi Despensa Virtual</strong> &mdash; Todos los derechos reservados &copy; 2025
+  </footer>
 
-        function actualizarTotal() {
+  <!-- ─── SCRIPTS ─── -->
+  <script>
+    function actualizarTotal() {
+        let total = 0;
+        let filas = document.querySelectorAll("#tabla tr");
 
-            let total = 0;
+        filas.forEach(fila => {
+            let precio = parseFloat(fila.querySelector(".precio").textContent);
+            let cantidad = parseInt(fila.querySelector(".cantidad").textContent);
+            let subtotal = precio * cantidad;
 
-            let filas = document.querySelectorAll("#tabla tr");
+            // Actualiza el texto del subtotal
+            fila.querySelector(".subtotal").textContent = "$" + subtotal.toFixed(2);
+            total += subtotal;
+        });
 
-            filas.forEach(fila => {
+        document.getElementById("total").textContent = "$" + total.toFixed(2);
+    }
 
-                let precio = parseFloat(fila.querySelector(".precio").textContent);
+    function cambiarCantidad(boton, cambio) {
+        let fila = boton.closest('tr');
+        let cantidadElemento = fila.querySelector(".cantidad");
+        let valor = parseInt(cantidadElemento.textContent);
 
-                let cantidad = parseInt(fila.querySelector(".cantidad").textContent);
-
-                let subtotal = precio * cantidad;
-
-                fila.querySelector(".subtotal").textContent = "$" + subtotal.toFixed(2);
-
-                total += subtotal;
-
-            });
-
-            document.getElementById("total").textContent = "$" + total.toFixed(2);
-
+        valor += cambio;
+        if (valor < 1) {
+            valor = 1;
         }
 
-        function cambiarCantidad(boton, cambio) {
-
-            let fila = boton.parentElement.parentElement;
-
-            let cantidad = fila.querySelector(".cantidad");
-
-            let valor = parseInt(cantidad.textContent);
-
-            valor += cambio;
-
-            if (valor < 1) {
-                valor = 1;
-            }
-
-            cantidad.textContent = valor;
-
-            actualizarTotal();
-
-        }
-
-        function eliminarProducto(boton) {
-
-            if (confirm("¿Desea eliminar este producto del carrito?")) {
-
-                boton.parentElement.parentElement.remove();
-
-                actualizarTotal();
-
-            }
-
-        }
-
-        function confirmarCompra() {
-
-            let filas = document.querySelectorAll("#tabla tr");
-
-            if (filas.length == 0) {
-
-                alert("El carrito está vacío.");
-
-                return;
-
-            }
-
-            alert("✅ Compra realizada correctamente.\n\nGracias por comprar en Mi Despensa Virtual.");
-
-        }
-
+        cantidadElemento.textContent = valor;
         actualizarTotal();
+    }
 
-    </script>
+    function eliminarProducto(boton) {
+        if (confirm("¿Desea eliminar este producto del carrito?")) {
+            boton.closest('tr').remove();
+            actualizarTotal();
+        }
+    }
+
+    function confirmarCompra() {
+        let filas = document.querySelectorAll("#tabla tr");
+        if (filas.length == 0) {
+            alert("El carrito está vacío.");
+            return;
+        }
+        alert("✅ Compra realizada correctamente.\n\nGracias por comprar en Mi Despensa Virtual.");
+    }
+
+    // Inicializar total al cargar la página
+    actualizarTotal();
+  </script>
 
 </body>
-
 </html>
-```
