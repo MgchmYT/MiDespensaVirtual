@@ -366,8 +366,8 @@ footer strong {
 .btn-add {
   width: 100%;
   padding: 10px;
-  background: var(--verde-suave);
-  color: var(--verde);
+  background: var(--verde);
+  color: var(--blanco);
   border: 2px solid transparent;
   border-radius: 50px;
   font-family: 'DM Sans', sans-serif;
@@ -379,7 +379,7 @@ footer strong {
 }
 
 .btn-add:hover {
-  background: var(--verde);
+  background: var(--verde-claro);
   color: var(--blanco);
 }
 /* ─── PERFIL DE USUARIO ─── */

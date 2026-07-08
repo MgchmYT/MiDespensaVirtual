@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Denjoh Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="admin-body">
+
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="admin-brand">
+        <span class="admin-brand-text">Denjoh Academy</span>
+      </div>
+      <ul class="admin-nav">
+        <li><a href="#" data-page="dashboard" class="active">📊 Dashboard</a></li>
+        <li><a href="#" data-page="cursos">📚 Cursos</a></li>
+        <li><a href="#" data-page="estudiantes">🎓 Estudiantes</a></li>
+        <li><a href="#" data-page="matriculas">📝 Matrículas</a></li>
+        <li><a href="#" data-page="pagos">💳 Pagos</a></li>
+        <li><a href="#" data-page="reportes">📈 Reportes Académicos</a></li>
+      </ul>
+      <div class="admin-sidebar-footer">
+        <a href="index.html" class="admin-logout">Cerrar Sesión</a>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+      <header class="admin-header">
+        <h1 id="page-title">Dashboard</h1>
+        <img src="https://ui-avatars.com/api/?name=Admin&background=1a7a4a&color=fff" alt="Admin" class="admin-avatar">
+      </header>
+
+      <div id="admin-content" class="admin-content">
+        </div>
+    </main>
+  </div>
+
+  <script>
+    const contentArea = document.getElementById('admin-content');
+    const pageTitle = document.getElementById('page-title');
+
+    const routes = {
+  'dashboard': { 
+    title: 'Dashboard', 
+    html: `
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-title">Estudiantes Activos</div><div class="stat-value">1,284</div></div>
+        <div class="stat-card"><div class="stat-title">Cursos Disponibles</div><div class="stat-value">24</div></div>
+        <div class="stat-card"><div class="stat-title">Ingresos Mensuales</div><div class="stat-value">$12.4k</div></div>
+      </div>
+      <div class="admin-panels">
+        <div class="admin-panel-card">
+          <h3>Estudiantes Recientes</h3>
+          <p>Ana García - <em>Nivel B1 (Hace 10 min)</em></p>
+          <p>Carlos Ruiz - <em>Nivel A2 (Hace 45 min)</em></p>
+          <p>Elena Torres - <em>Nivel C1 (Hace 2 horas)</em></p>
+        </div>
+        <div class="admin-panel-card">
+          <h3>Acciones Rápidas</h3>
+          <button class="btn-submit" style="margin-bottom:10px;">+ Crear Nuevo Curso</button>
+          <button class="btn-submit" style="background:var(--amarillo-dark);">+ Registrar Alumno</button>
+        </div>
+      </div>` 
+  },
+  'cursos': { 
+    title: 'Gestión de Cursos', 
+    html: `
+      <div class="admin-panel-card">
+        <table class="cart-table">
+          <thead><tr><th>Curso</th><th>Nivel</th><th>Estudiantes</th><th>Estado</th></tr></thead>
+          <tbody>
+            <tr><td>English Basics</td><td>A1-A2</td><td>450</td><td class="text-verde">Activo</td></tr>
+            <tr><td>Intermediate Flow</td><td>B1-B2</td><td>320</td><td class="text-verde">Activo</td></tr>
+            <tr><td>Mastery English</td><td>C1-C2</td><td>110</td><td class="text-verde">Activo</td></tr>
+          </tbody>
+        </table>
+      </div>` 
+  },
+  'estudiantes': { 
+    title: 'Estudiantes', 
+    html: `
+      <div class="admin-panel-card">
+        <p>Total de alumnos registrados: <b>1,842</b></p>
+        <hr style="margin: 1rem 0;">
+        <ul style="list-style:none;">
+          <li style="padding:10px 0; border-bottom:1px solid var(--gris-borde);">👤 <b>Juan Pérez</b> - j.perez@email.com - Nivel: B2</li>
+          <li style="padding:10px 0; border-bottom:1px solid var(--gris-borde);">👤 <b>María López</b> - m.lopez@email.com - Nivel: A1</li>
+          <li style="padding:10px 0;">👤 <b>Pedro Sánchez</b> - p.sanchez@email.com - Nivel: C1</li>
+        </ul>
+      </div>` 
+  },
+  'matriculas': { 
+    title: 'Matrículas', 
+    html: `
+      <div class="admin-panel-card">
+        <h3>Últimas Inscripciones</h3>
+        <p>ID: #MT-9901 | <b>Ana García</b> | English Basics | <span class="status-badge status-entregado">Pagado</span></p>
+        <p>ID: #MT-9902 | <b>Luis Mora</b> | Mastery English | <span class="status-badge status-pendiente">Pendiente</span></p>
+      </div>` 
+  },
+  'pagos': { 
+    title: 'Gestión de Pagos', 
+    html: `
+      <div class="admin-panel-card">
+        <h3>Resumen Financiero</h3>
+        <p>Ingresos del día: <b>$840.00</b></p>
+        <p>Pendientes de cobro: <b>$1,200.00</b></p>
+      </div>` 
+  },
+  'reportes': { 
+    title: 'Reportes Académicos', 
+    html: `
+      <div class="admin-panel-card">
+        <h3>Desempeño Mensual</h3>
+        <div style="background:var(--gris-claro); height:150px; display:flex; align-items:center; justify-content:center; border-radius:12px;">
+          [Gráfico de barras de crecimiento de alumnos aquí]
+        </div>
+        <p style="margin-top:1rem;">Crecimiento de estudiantes: <b>+12% respecto al mes anterior.</b></p>
+      </div>` 
+  }
+};
+    function loadPage(page) {
+      const route = routes[page] || routes['dashboard'];
+      pageTitle.innerText = route.title;
+      contentArea.innerHTML = route.html;
+      document.querySelectorAll('.admin-nav a').forEach(link => {
+        link.classList.remove('active');
+        if(link.getAttribute('data-page') === page) link.classList.add('active');
+      });
+    }
+
+    document.querySelectorAll('.admin-nav a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        loadPage(link.getAttribute('data-page'));
+      });
+    });
+
+    loadPage('dashboard');
+  </script>
+</body>
+</html>

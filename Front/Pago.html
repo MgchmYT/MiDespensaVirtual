@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finalizar Compra - English Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    /* Ajuste específico para que la columna de pago no sea demasiado ancha */
+    .payment-main {
+      max-width: 1000px;
+    }
+    .payment-grid {
+      grid-template-columns: 1.5fr 1fr; /* Detalles del curso (más ancho) y formulario (más estrecho) */
+      gap: 2rem;
+    }
+    @media (max-width: 768px) {
+      .payment-grid {
+        grid-template-columns: 1fr; /* En móviles, una columna */
+      }
+    }
+  </style>
+</head>
+<body>
+   <nav>
+    <div class="nav-inner">
+      <a class="nav-brand" href="index.html">
+        <div class="nav-brand-icon">
+          <img src="/Imgs/Icon Index.svg" alt="" width="25" height="25  ">
+        </div>
+        <span class="nav-brand-text">Denjoh Academy</span>
+      </a>
+      
+    </div>
+</nav>  
+
+  <main class="page-container payment-main">
+    <div class="page-header">
+      <h1 class="page-title">Finalizar Inscripción</h1>
+      <p class="page-subtitle">Confirma tu curso y realiza el pago seguro</p>
+    </div>
+
+    <div class="products-grid payment-grid">
+      
+      <div id="contenedor-resumen"></div>
+
+      <div class="product-card" style="padding: 2rem;">
+        <div class="login-header" style="margin-bottom: 1.5rem;">
+          <h3 class="login-title" style="font-size: 1.5rem;">Detalles de Pago</h3>
+          <p class="login-subtitle" style="font-size: 0.9rem;">Pago 100% seguro y encriptado</p>
+        </div>
+
+        <form action="procesar_pago.php" method="post">
+          <div class="form-group">
+            <label class="form-label">Nombre en la tarjeta</label>
+            <input type="text" class="form-control" placeholder="Ej. Juan Pérez" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Número de tarjeta</label>
+            <input type="text" class="form-control" placeholder="XXXX XXXX XXXX XXXX" maxlength="16" required>
+          </div>
+
+          <div class="row" style="display: flex; gap: 15px; margin-bottom: 1.5rem;">
+            <div class="form-group" style="flex: 1;">
+              <label class="form-label">Excepción (MM/AA)</label>
+              <input type="text" class="form-control" placeholder="MM/AA" maxlength="5" required>
+            </div>
+            <div class="form-group" style="flex: 1;">
+              <label class="form-label">CVC</label>
+              <input type="text" class="form-control" placeholder="XXX" maxlength="3" required>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-submit">Confirmar Pago</button>
+
+          <div class="login-footer" style="margin-top: 1rem; font-size: 0.8rem;">
+            Al proceder, aceptas los <a href="#">Términos y Condiciones</a>.
+          </div>
+        </form>
+      </div>
+      
+    </div>
+  </main>
+
+
+<script>
+  // 1. Definimos los datos de cada nivel
+  const catalogo = {
+    'A1': { titulo: 'Nivel A1 - A2', precio: '$99.00', desc: 'Base sólida, gramática fundamental y estructuras esenciales para principiantes.' },
+    'B1': { titulo: 'Nivel B1 - B2', precio: '$150.00', desc: 'Independencia lingüística, fluidez y participación en conversaciones complejas.' },
+    'C1': { titulo: 'Nivel C1 - C2', precio: '$220.00', desc: 'Dominio experto, precisión profesional y manejo de matices culturales.' }
+  };
+
+  // 2. Leemos el parámetro enviado por la URL
+  const params = new URLSearchParams(window.location.search);
+  const nivel = params.get('curso');
+  const curso = catalogo[nivel] || catalogo['A1']; // Si no encuentra curso, muestra A1 por defecto
+
+  // 3. Inyectamos los datos en el HTML
+  const contenedor = document.getElementById('contenedor-resumen');
+  contenedor.innerHTML = `
+    <div class="product-card">
+      <div class="product-info">
+        <h3 class="product-title">Curso Seleccionado: ${curso.titulo}</h3>
+        <p class="product-price">${curso.precio}</p>
+        <p style="color: var(--gris-texto);">${curso.desc}</p>
+      </div>
+    </div>
+  `;
+</script>
+
+</body>
+</html>
